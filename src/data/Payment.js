@@ -15,7 +15,7 @@ import Payment from './Payment.js';
  */
 
 export default class {
-    constructor(id, date, totMnthlyPmt, intPaid, principalPaid, remainingBalance) {
+    constructor(id, date, totMnthlyPmt, intPd, prinPd, remBal) {
         this._uuid = id
         this._date = date;
         this._currPrinBal = currPrinBal

@@ -12,12 +12,13 @@ export default class {
      * @return months till debt paid off
      */
 
-    constructor(uuid, type, principal, rate, payment, date, monRem) {
-        this._uuid = uuid;
+    constructor(id, loanNum, type, prin, rate, pmt, date, monRem) {
+        this._uuid = id;
+        this._loanNum = loanNum;
         this._type = type;
-        this._principal = principal;
+        this._prin = prin;
         this._rate = rate;
-        this._payment = payment;
+        this._pmt = pmt;
         this._date = date
         this._mthsRem = mthsRem
     }
