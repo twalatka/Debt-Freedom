@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:2000/debt';
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/debt';
 
 const connect = async() => await MongoClient.connect(mongoUri);
 

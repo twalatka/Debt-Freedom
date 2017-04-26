@@ -12,20 +12,20 @@ export default class {
      * @return months till debt paid off
      */
 
-    constructor(id, loanNum, type, prin, rate, pmt, date, monRem) {
-        this._uuid = id;
-        this._loanNum = loanNum;
-        this._type = type;
-        this._prin = prin;
-        this._rate = rate;
-        this._pmt = pmt;
-        this._date = date
-        this._mthsRem = mthsRem
+    constructor(id, loanNum, type, prin, rate, pmt, date, mthsRem) {
+        this.uuid = id;
+        this.loanNum = loanNum;
+        this.type = type;
+        this.prin = prin;
+        this.rate = rate;
+        this.pmt = pmt;
+        this.date = date;
+        this.mthsRem = mthsRem;
     }
 
     // return the months till final pmt and amount of interest paid
-    get mthsRem() { return this._mthsRem; }
+    // get mthsRem() { return this._mthsRem; }
 
 
-    set mthsRem(mthsRem) { this._mthsRem = mthsRem; }
-}
+    // set mthsRem(mthsRem) { this._mthsRem = mthsRem; }
+};
