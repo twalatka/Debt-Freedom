@@ -34,7 +34,9 @@ export let pmts = [pmt1, pmt2, pmt3, pmt4, pmt5, pmt6];
 
 export const loadData = async() => {
     const users = await getCollection('users');
+
     const loans = await getCollection('loans');
+    
     const pmts = await getCollection('pmts');
 
     // const result = await users.insertMany([user1, user2]);

@@ -1,4 +1,4 @@
-import { Router } from 'Express';
+import { Router } from 'express';
 
 import {getCollection } from '../db.js';
 import { users } from '../data/data.js';
@@ -7,6 +7,7 @@ import User from '../data/data.js';
 const router = new Router();
 
 router.get ('/', (req,res) =>{
+    console.log("hello")
    return res.json(users)
 });
 

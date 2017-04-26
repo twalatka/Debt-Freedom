@@ -1,12 +1,15 @@
 import Express from 'express';
 import Parser from 'body-parser';
 import cors from 'cors';
+import LoggerMiddleware from 'express-logging';
+import Logger from 'logops';
 
 import {loadData} from './data/data.js';
 import {deleteDate} from './data/data.js';
 import user from './route/users.js';
 import payment from './route/payments.js';
 import loan from './route/loans.js';
+
 
 /*
  * index.js
@@ -27,9 +30,12 @@ console.log(port);
 
 app.use(cors());
 app.use(Parser.json());
-app.use('./user', user);
-app.use('./loan', loan);
-app.use('./payment', payment);
+app.use(LoggerMiddleware(Logger));
+
+
+app.use('/users', user);
+app.use('/loans', loan);
+app.use('/payments', payment);
 
 
 app.listen(port, () => console.log(`App start: http://localhost:${port}`));
