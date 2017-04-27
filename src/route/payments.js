@@ -8,8 +8,8 @@
 import { Router } from 'Express';
 
 import { getCollection } from '../db.js';
-import { payments } from '../data/payment.js';
-import Payment from '../data/payment.js';
+import { payments } from '../data/data.js';
+import Payment from '../data/data.js';
 
 const router = new Router();
 

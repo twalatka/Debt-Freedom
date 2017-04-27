@@ -1,8 +1,8 @@
-import { Router } from 'Express';
+import { Router } from 'express';
 
 import {getCollection} from '../db.js';
 import {loan} from '../data/data.js';
-import Loan from '../data/loan.js';
+import Loan from '../data/data.js';
 
 /**
  * loan.js

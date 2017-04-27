@@ -14,7 +14,7 @@ router.get ('/', (req,res) =>{
 router.get ('/:email', (req,res) => {
     let user = users.filter( user => user.email === req.params.email);
     return res.json(user);
-
+    
 });
 
 router.post ( '/', (req,res) => {
