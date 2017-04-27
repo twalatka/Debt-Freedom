@@ -8,5 +8,5 @@ export default connect;
 
 export const getCollection = async(collection) => {
     const db = await connect();
-    return db.collection(collection);
+    return db.collection(collectionIWant);
 };

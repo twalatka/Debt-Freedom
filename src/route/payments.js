@@ -81,21 +81,27 @@ router.post( '/', (req,res) => {
 }); //end router.post ('/')
 
 /*
- * storePayment
- * Used to store a payment in the attached database
+ * /payments/ Post Route
+ * Used to store a new item in Mongo
  *
- * @param payment The payment to be stored.
+ * @param id The Id of the payment
+ * @param summary The one line summary of the payment
+ * @param description The long description or details of the payment
+ * @param dueDate The due date for the item. in mm/dd/yyyy format
+ * @param user the user who owns the payment
+ *
+ * @return The newly created instance of the payment.
  */
 
-const storeItem = async(payment) => {
-    const itemCollection = await getCollection('payment');
+const storePayment = async(payment) => {
+    const paymentCollection = await getCollection('payment');
     paymentCollection.insertOne(payment);
 } //end storeItem
 
 /*
  * /payents/:paymentId Delete route
  * Used to delete an payment from the list.
- * Note: The payemmt is archived and still exists in the database.
+ * Note: The payment is archived and still exists in the database.
  */
 router.delete( '/:payment', (req,res) => {
     removePayment(req.params.paymentId);
@@ -119,7 +125,7 @@ const removeItem = async(itemId) => {
 
 /*
  * deletePayment
- * Used to remove an item from the database.
+ * Used to remove an payment from the database.
  * Don't remove data, it doesn't end well..
  */
 const deletePayment = async(paymentId) => {
