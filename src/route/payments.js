@@ -1,141 +1,95 @@
-/*
-* paymnents.js
-* this class defines the routes for getting payment info
-* Author: Teresa Walatka
-* Created: 4/25/17
-*/
-
-import { Router } from 'Express';
-
-import { getCollection } from '../db.js';
-import { payments } from '../data/data.js';
-import Payment from '../data/data.js';
+import {Router} from 'Express';
+import uuidv4 from 'uuid/v4';
+import {getCollection} from '../db.js';
+import {payments} from '../data/data.js';
+import Payment from '../data/payment.js';
 
 const router = new Router();
 
-/* getAllPayments
-* used to get all payments
-* @return an array of all payments
-* @TODO link to user
-*/
 
-const getAllPayments = async() => {
-    const paymentsCollection = await getCollection('payments');
+//set router to get ALL payments, use the getAllPayments function
 
-    return await ( await paymentsCollection.find({ active: true}) ).toArray();
-} //end getAllPayments
 
-/* 
-* /payments Route
-* Gets all payments
-*
-* @TODO only return payments for one specified user 
-*/
-router.get( '/', (req,res) => {
-    return getAllPayments().then(
-        payments => {
-            return res.json(payments);
-        });
-});
+router.get('/', (req,res) => {
+    return getAllPayments()
+    .then(payment => {
+      return res.json(payment);
+        }); 
+    });
 
-/*
- * /payments/:id Route
- * Used to get details about a specific payement by specifying the id of the payment
- * 
- * @TODO only return payent for specified user
- */
-
-router.get('/:payment', (req,res) => {
-    return getAllPayments( req.params.payment).then(
-        payment => {
-            console.log(payment);
+//set router to get ONE payment, uset the getPayment function    
+router.get( '/:payment', (req,res) => {
+    return getPayment( req.params.payment )
+    .then(payment => {
             return res.json(payment);
-        }
-    );
-});
+        });
+    });
 
-/*
- * /payments/ Post Route
- * Used to store a new item in Mongo
- *
- * @param id The Id of the payment
- * @param summary The one line summary of the payment
- * @param description The long description or details of the payment
- * @param dueDate The due date for the item. in mm/dd/yyyy format
- * @param user the user who owns the payment
- *
- * @return The newly created instance of the payment.
- */
+//POST route
 router.post( '/', (req,res) => {
     let payment = new Payment(
         req.body.id,
         req.body.date,
         req.body.currPrinBal,
-        req.body.totMthyPmt,
+        req.body.totMthlyPmt,
         req.body.intPd,
-        req.body.prinPd,
-        req.body.remBal  
-   ); //end new Payment
-   storePayment(payment);
-   return res.json(payment);
-}); //end router.post ('/')
-
-/*
- * /payments/ Post Route
- * Used to store a new item in Mongo
- *
- * @param id The Id of the payment
- * @param summary The one line summary of the payment
- * @param description The long description or details of the payment
- * @param dueDate The due date for the item. in mm/dd/yyyy format
- * @param user the user who owns the payment
- *
- * @return The newly created instance of the payment.
- */
-
-const storePayment = async(payment) => {
-    const paymentCollection = await getCollection('payment');
-    paymentCollection.insertOne(payment);
-} //end storeItem
-
-/*
- * /payents/:paymentId Delete route
- * Used to delete an payment from the list.
- * Note: The payment is archived and still exists in the database.
- */
-router.delete( '/:payment', (req,res) => {
-    removePayment(req.params.paymentId);
-    return res.send( 'payment ${req.params.payemntId} has been deleted' );
-}); //end deletePayent
-
-/*
- * removePayment
- * Used to set the active flag to false on an payment.
- * This will effectivly delete the payment for the user.
- */
-const removeItem = async(itemId) => {
-    const paymentCollection = await getCollection('payment');
-    paymentCollection.updateOne(
-        { id: parseInt(paymentId) },
-        {
-            $set: { 'active': false }
-        }
+        req.body.PrinPd,
+        req.body.remBal
     );
+    storePayment(payment);
+    return res.json(payment);
+}); 
+
+//PUT router
+router.put( './:paymentId', (req,res) => {
+    putPayment(req.params.paymentId);
+    return res.send( 'payment, ${req.params.paymentId} has been posted.');
+}); 
+
+//DELETE route
+router.delete( '/:paymentId', (req,res) => {
+    removePayment(req.params.paymentId);
+    return res.send( 'payment ${req.params.paymentId} has been deleted.');
+}); 
+
+//END PAYMENT ROUTES
+
+
+//function to retrieve all Payments
+const getAllPayments = async() => {
+    const paymentCollection = await getCollection('payments');
+    
+    return await (await paymentCollection.find({ active: true}) ).toArray();
 }
 
-/*
- * deletePayment
- * Used to remove an payment from the database.
- * Don't remove data, it doesn't end well..
- */
+//funciton to retrieve One Payment
+export const getPayment = async(id) => {
+    id = parseInt(id);
+    const paymentCollection = await getCollection('payments');
+    const payment = await (await paymentCollection.find({ id })).toArray();
+    return payment;
+}
+
+
+const storePayment = async(payment) => {
+    const paymentCollection = await getCollection('payments');
+    return paymentCollection.insertOne(payment);
+}; 
+
+
+const removePayment = async(payemntId) => {
+    const paymentCollection = await getCollection('payments');
+    paymentCollection.updateOne(
+    { id: parseInt(paymentId) },
+    { $set: {'active': false}
+});
+}
+
 const deletePayment = async(paymentId) => {
     const paymentCollection = await getCollection('payment');
     paymentCollection.deleteOne(
-        { id: parseInt(paymentId) }
-    );
+        {id: parseInt(paymentId) 
+     });
 }
 
 export default router;
-
-
-

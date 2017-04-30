@@ -8,6 +8,6 @@ export default class {
     constructor(id, name, email) {
         this.name = name;
         this.email = email;
-        this.id = id
+        this.uuid = id;
     }   
 };

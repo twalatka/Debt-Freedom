@@ -18,6 +18,7 @@
     ]
   },
   "devDependencies": {
+    "ava": "^0.19.1",
     "babel-cli": "^6.22.2",
     "babel-polyfill": "^6.22.0",
     "babel-preset-pundits": "^2.0.3",
@@ -31,6 +32,7 @@
     "mathjax-node": "^1.0.0",
     "mongod": "^2.0.0",
     "mongodb": "^2.2.25",
-    "node-fetch": "^1.6.3"
+    "node-fetch": "^1.6.3",
+    "uuid": "^3.0.1"
   }
 }

@@ -5,7 +5,7 @@ import LoggerMiddleware from 'express-logging';
 import Logger from 'logops';
 
 import {loadData} from './data/data.js';
-import {deleteDate} from './data/data.js';
+import {deleteData} from './data/data.js';
 import user from './route/users.js';
 import payment from './route/payments.js';
 import loan from './route/loans.js';
@@ -25,14 +25,16 @@ const port = process.env.PORT || 5000;
 
 console.log(port);
 
+//load seed data when in development
+if( ENV === 'development' ){
+  deleteData();
+  loadData();
+};
 
-//Create routes for users and items
-
+//Create routes for users, loans and payments
 app.use(cors());
 app.use(Parser.json());
 app.use(LoggerMiddleware(Logger));
-
-
 app.use('/users', user);
 app.use('/loans', loan);
 app.use('/payments', payment);

@@ -13,7 +13,7 @@ export default class {
      */
 
     constructor(id, loanNum, type, prin, rate, pmt, date, mthsRem) {
-        this.id = id;
+        this.uuid = id;
         this.loanNum = loanNum;
         this.type = type;
         this.prin = prin;
