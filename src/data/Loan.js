@@ -3,6 +3,7 @@ export default class {
     /**
      * construtor method
      * @param uuid
+     * @param loanNum
      * @param type  Debt type, ie home, vehicle, loans
      * @param Principal  Outstanding balance
      * @param rate  Percentage rate
