@@ -1,4 +1,4 @@
-import {Router} from 'Express';
+import {Router} from 'express';
 import uuidv4 from 'uuid/v4';
 import {getCollection} from '../db.js';
 import {payments} from '../data/data.js';
