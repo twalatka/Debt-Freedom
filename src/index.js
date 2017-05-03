@@ -1,8 +1,8 @@
 import Express from 'express';
 import Parser from 'body-parser';
 import cors from 'cors';
-import LoggerMiddleware from 'express-logging';
-import Logger from 'logops';
+// import LoggerMiddleware from 'express-logging';
+// import Logger from 'logops';
 
 import {loadData} from './data/data.js';
 import {deleteData} from './data/data.js';
@@ -34,7 +34,7 @@ if( ENV === 'development' ){
 //Create routes for users, loans and payments
 app.use(cors());
 app.use(Parser.json());
-app.use(LoggerMiddleware(Logger));
+// app.use(LoggerMiddleware(Logger));
 app.use('/users', user);
 app.use('/loans', loan);
 app.use('/payments', payment);
