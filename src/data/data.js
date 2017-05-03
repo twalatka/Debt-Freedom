@@ -1,9 +1,9 @@
 
 import { getCollection } from '../db.js';
 import uuidV4 from 'uuid/v4';
-import loan from './loan';
-import payment from './payment';
-import user from './user';
+import loan from './loan.js';
+import payment from './payment.js';
+import user from './user.js';
 
 
 //create user insances
