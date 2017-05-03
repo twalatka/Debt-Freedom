@@ -5,7 +5,6 @@ import loan from './loan.js';
 import payment from './payment.js';
 import user from './user.js';
 
-
 //create user insances
 export let user1 = new user(uuidV4(), 'Teresa', 'twalatka@yahoo.com');
 export let user2 = new user(uuidV4(), 'Emerson', 'ewalatkacox@doggy.com');
