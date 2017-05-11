@@ -6,6 +6,10 @@
 * Modified: 4/25/17
  */
 
+import user from './user.js';
+import loan from './loan.js';
+
+
 export default class {
     constructor(id, user, loanNum, pmtNum, date, totMthlyPmt, intRate, intPd, prinPd, remBal) {
         this._id = id;
