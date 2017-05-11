@@ -6,7 +6,7 @@
  */
 export default class {
     constructor(id, name, email) {
-        //this.uuid = id;
+        this._id = id;
         this.name = name;
         this.email = email;
         

@@ -40,6 +40,6 @@ app.use('/loans', loan);
 app.use('/payments', payment);
 
 
-app.listen(port, () => console.log(`App start: http://localhost:${port}`));
+app.listen(port, () => console.log(`App start: http://localhost:5000`));
 
 export default app;

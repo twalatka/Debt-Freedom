@@ -13,7 +13,8 @@ export default class {
      */
 
     constructor(id, loanNum, type, prin, rate, pmt, date, mthsRem) {
-        //this.uuid = id;
+        this._id = id;
+        this.user = user;
         this.loanNum = loanNum;
         this.type = type;
         this.prin = prin;
@@ -21,6 +22,7 @@ export default class {
         this.pmt = pmt;
         this.date = date;
         this.mthsRem = mthsRem;
+        this.active = true;
     }
 
     // return the months till final pmt and amount of interest paid

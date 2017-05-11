@@ -6,14 +6,12 @@ import Payment from '../data/payment.js';
 
 const router = new Router();
 
-
 //set router to get ALL payments, use the getAllPayments function
-
-
 router.get('/', (req,res) => {
     return getAllPayments()
     .then(payment => {
-      return res.json(payment);
+        console.log(payments);
+      return res.json(payments);
         }); 
     });
 
@@ -21,6 +19,7 @@ router.get('/', (req,res) => {
 router.get( '/:payment', (req,res) => {
     return getPayment( req.params.payment )
     .then(payment => {
+        console.log(payment);
             return res.json(payment);
         });
     });
@@ -28,7 +27,6 @@ router.get( '/:payment', (req,res) => {
 //POST route
 router.post( '/', (req,res) => {
     let payment = new Payment(
-        req.body.id,
         req.body.date,
         req.body.currPrinBal,
         req.body.totMthlyPmt,
@@ -43,13 +41,13 @@ router.post( '/', (req,res) => {
 //PUT router
 router.put( './:paymentId', (req,res) => {
     putPayment(req.params.paymentId);
-    return res.send( 'payment, ${req.params.paymentId} has been posted.');
+    res.send(`Payment ${req.params.id} has been posted`);
 }); 
 
 //DELETE route
-router.delete( '/:paymentId', (req,res) => {
-    removePayment(req.params.paymentId);
-    return res.send( 'payment ${req.params.paymentId} has been deleted.');
+router.delete( '/:id', (req,res) => {
+    deletePayment(req.params.paymentId);
+    res.send(`Payment ${req.params.id} has been deleted`);
 }); 
 
 //END PAYMENT ROUTES
@@ -63,33 +61,26 @@ const getAllPayments = async() => {
 }
 
 //funciton to retrieve One Payment
-export const getPayment = async(id) => {
-    id = parseInt(id);
+const getPayment = async(_id) => {
     const paymentCollection = await getCollection('payments');
-    const payment = await (await paymentCollection.find({ id })).toArray();
+    const payment = await (await paymentCollection.find({_id})).toArray();
     return payment;
-}
-
+};
 
 const storePayment = async(payment) => {
     const paymentCollection = await getCollection('payments');
     return paymentCollection.insertOne(payment);
+};
+
+const removePayment = async(paymentId) => {
+    const paymentCollection = await getCollection('payments');
+    paymentCollecction.removeOne({_id: paymentId});
 }; 
 
-
-const removePayment = async(payemntId) => {
-    const paymentCollection = await getCollection('payments');
-    paymentCollection.updateOne(
-    { id: parseInt(paymentId) },
-    { $set: {'active': false}
-});
-}
-
 const deletePayment = async(paymentId) => {
-    const paymentCollection = await getCollection('payment');
-    paymentCollection.deleteOne(
-        {id: parseInt(paymentId) 
-     });
-}
+    const paymentCollection = await getCollection('payments');
+    payementCollection.deleteOne({_id: paymentId});
+};
+     
 
 export default router;

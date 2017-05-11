@@ -7,11 +7,14 @@
  */
 
 export default class {
-    constructor(id, date, currPrinBal, totMthlyPmt, intPd, prinPd, remBal) {
-        //this.uuid = id
+    constructor(id, loanNum, pmtNum, date, totMthlyPmt, intRate, intPd, prinPd, remBal) {
+        this._id = id;
+        this.user = user;
+        this.loanNum = loanNum;
+        this.pmtNum = pmtNum;
         this.date = date;
-        this.currPrinBal = currPrinBal
         this.totMthlyPmt = totMthlyPmt;
+        this.intRate = intRate            
         this.intPd = intPd;
         this.prinPd = prinPd;
         this.remBal = remBal;

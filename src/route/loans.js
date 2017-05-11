@@ -4,31 +4,29 @@ import {getCollection} from '../db.js';
 import {loans} from '../data/data.js';
 import Loan from '../data/loan.js';
 
-
 const router = new Router();
 
-//set router to get ALL loans, use the getAllLoans function
+//set router to get ALL loans
 router.get('/', (req,res) => {
     return getAllLoans()
-    .then(loan => {
-        console.log(loans)
+    .then(loans => {
       return res.json(loans);
-        }); 
+        })
     });
 
-//set router to get ONE loan, uset the getLoan function    
+//set router to get ONE loan   
 router.get( '/:loan', (req,res) => {
     return getLoan( req.params.loan )
     .then(loan => {
-        console.log(loan);
-        return res.json(loan);
-        });
+      return res.json(loan);
+        })
     });
 
 //POST route
 router.post( '/', (req,res) => {
     let loan = new Loan(
-        req.body.id,
+        req.body._id,
+        req.body.user,
         req.body.loanNum,
         req.body.type,
         req.body.prin,
@@ -42,15 +40,15 @@ router.post( '/', (req,res) => {
 }); 
 
 //PUT router
-router.put( './:loanId', (req,res) => {
-    putLoan(req.params.LoanId);
-    return res.send( 'loan, ${req.params.loanId} has been posted.');
+router.put( './:id', (req,res) => {
+    putLoan(req.params.id);
+    res.send(`Item ${req.params.id} has been posted`);
 }); 
 
 //DELETE route
-router.delete( '/:loanId', (req,res) => {
-    removeLoan(req.params.loanId);
-    return res.send( 'loan ${req.params.loanId} has been deleted.');
+router.delete( '/:id', (req,res) => {
+    deleteLoan(req.params.id);
+    res.send(`Item ${req.params.id} has been deleted`);
 });
 
 //END LOAN ROUTES
@@ -64,13 +62,11 @@ const getAllLoans = async() => {
 }
 
 //funciton to retrieve One loan
-export const getLoan = async(id) => {
-    id = parseInt(id);
+const getLoan = async(_id) => {
     const loanCollection = await getCollection('loans');
-    const loan = await (await loanCollection.find({ id })).toArray();
+    const loan = await (await loanCollection.find({_id })).toArray();
     return loan;
-}
-
+};
 
 const storeLoan = async(loan) => {
     const loanCollection = await getCollection('loans');
@@ -80,17 +76,12 @@ const storeLoan = async(loan) => {
 
 const removeLoan = async(loanId) => {
     const loanCollection = await getCollection('loans');
-    loanCollection.updateOne(
-    { id: parseInt(loanId) },
-    { $set: {'active': false}
-});
-}
+    loanCollecction.removeOne({_id: loanId});
+};
 
 const deleteLoan = async(loanId) => {
     const loanCollection = await getCollection('loans');
-    loanCollection.loanOne(
-        {id: parseInt(loanId) 
-     });
-}
+    loanCollecction.deleteOne({_id: loanId});
+};
 
 export default router;

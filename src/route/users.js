@@ -7,7 +7,6 @@ import User from '../data/user.js';
 const router = new Router();
 
 router.get ('/', (req,res) =>{
-    console.log("hello");
    return res.json(users);
 });
 
