@@ -12,7 +12,7 @@ export default class {
      * @return months till debt paid off
      */
 
-    constructor(id, loanNum, type, prin, rate, pmt, date, mthsRem) {
+    constructor(id, user, loanNum, type, prin, rate, pmt, date, mthsRem) {
         this._id = id;
         this.user = user;
         this.loanNum = loanNum;
