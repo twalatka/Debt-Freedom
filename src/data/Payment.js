@@ -7,7 +7,7 @@
  */
 
 export default class {
-    constructor(id, loanNum, pmtNum, date, totMthlyPmt, intRate, intPd, prinPd, remBal) {
+    constructor(id, user, loanNum, pmtNum, date, totMthlyPmt, intRate, intPd, prinPd, remBal) {
         this._id = id;
         this.user = user;
         this.loanNum = loanNum;
